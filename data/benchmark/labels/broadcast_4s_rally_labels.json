@@ -1,0 +1,60 @@
+{
+  "source_video": "broadcast_4s_rally.mp4",
+  "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_4s_rally_tracking.json",
+  "annotation_status": "reviewed",
+  "notes": "Reviewed against tmp/benchmark_review/broadcast_4s_rally_event_sheet.jpg and tmp/benchmark_review/broadcast_4s_rally_timeline.jpg. The current event sequence was kept, including the final near-player hit at the clip end.",
+  "rallies": [
+    {
+      "id": 1,
+      "start_frame": 15,
+      "end_frame": 99,
+      "events": [
+        {
+          "type": "rally_start",
+          "frame": 15,
+          "actor": "far_player"
+        },
+        {
+          "type": "serve",
+          "frame": 16,
+          "actor": "far_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 27,
+          "actor": "far_player"
+        },
+        {
+          "type": "hit",
+          "frame": 31,
+          "actor": "near_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 72,
+          "actor": "near_player"
+        },
+        {
+          "type": "hit",
+          "frame": 80,
+          "actor": "far_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 92,
+          "actor": "far_player"
+        },
+        {
+          "type": "hit",
+          "frame": 99,
+          "actor": "near_player"
+        },
+        {
+          "type": "rally_end",
+          "frame": 99,
+          "actor": "near_player"
+        }
+      ]
+    }
+  ]
+}

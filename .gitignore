@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.ipynb_checkpoints/
+
+out/
+tmp/
+
+data/raw/
+data/samples/
+
+models/
+yolo11n.pt
+yolo11n-pose.pt
+
+1909.00985v1.pdf
+paper2.pdf

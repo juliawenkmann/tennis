@@ -1,0 +1,45 @@
+{
+  "source_video": "broadcast_2s.mp4",
+  "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_2s_tracking.json",
+  "annotation_status": "reviewed",
+  "notes": "Reviewed against the event frame sheet in tmp/benchmark_review/broadcast_2s_event_sheet.jpg. No timing corrections were needed for this clip.",
+  "rallies": [
+    {
+      "id": 1,
+      "start_frame": 2,
+      "end_frame": 49,
+      "events": [
+        {
+          "type": "rally_start",
+          "frame": 2,
+          "actor": "near_player"
+        },
+        {
+          "type": "serve",
+          "frame": 4,
+          "actor": "near_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 11,
+          "actor": "near_player"
+        },
+        {
+          "type": "hit",
+          "frame": 14,
+          "actor": "far_player"
+        },
+        {
+          "type": "hit",
+          "frame": 44,
+          "actor": "far_player"
+        },
+        {
+          "type": "rally_end",
+          "frame": 49,
+          "actor": "far_player"
+        }
+      ]
+    }
+  ]
+}

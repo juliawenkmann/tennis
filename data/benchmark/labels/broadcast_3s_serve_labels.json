@@ -1,0 +1,30 @@
+{
+  "source_video": "broadcast_3s_serve.mp4",
+  "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_3s_serve_tracking.json",
+  "annotation_status": "reviewed",
+  "notes": "Reviewed against tmp/benchmark_review/broadcast_3s_serve_event_sheet.jpg. The serve sequence and early rally cut were accepted as currently predicted.",
+  "rallies": [
+    {
+      "id": 1,
+      "start_frame": 2,
+      "end_frame": 30,
+      "events": [
+        {
+          "type": "rally_start",
+          "frame": 2,
+          "actor": "near_player"
+        },
+        {
+          "type": "serve",
+          "frame": 16,
+          "actor": "near_player"
+        },
+        {
+          "type": "rally_end",
+          "frame": 30,
+          "actor": "near_player"
+        }
+      ]
+    }
+  ]
+}

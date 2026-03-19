@@ -1,0 +1,40 @@
+{
+  "source_video": "broadcast_5s_pressure.mp4",
+  "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_5s_pressure_tracking.json",
+  "annotation_status": "reviewed",
+  "notes": "Reviewed against tmp/benchmark_review/broadcast_5s_pressure_event_sheet.jpg and tmp/benchmark_review/broadcast_5s_pressure_timeline.jpg. The first rally was kept as predicted. The trailing 3-frame micro-rally was dropped as a false positive from isolated ball detections.",
+  "rallies": [
+    {
+      "id": 1,
+      "start_frame": 5,
+      "end_frame": 109,
+      "events": [
+        {
+          "type": "rally_start",
+          "frame": 5,
+          "actor": "far_player"
+        },
+        {
+          "type": "serve",
+          "frame": 11,
+          "actor": "far_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 51,
+          "actor": "far_player"
+        },
+        {
+          "type": "hit",
+          "frame": 107,
+          "actor": "near_player"
+        },
+        {
+          "type": "rally_end",
+          "frame": 109,
+          "actor": "near_player"
+        }
+      ]
+    }
+  ]
+}

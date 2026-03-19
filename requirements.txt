@@ -1,0 +1,6 @@
+ipywidgets
+numpy
+opencv-python
+torch
+ultralytics
+yt-dlp

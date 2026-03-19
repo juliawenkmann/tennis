@@ -1,0 +1,374 @@
+{
+  "broadcast_2s": {
+    "overall": {
+      "predicted": 6,
+      "labeled": 6,
+      "matched": 6,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "by_type": {
+      "bounce": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "hit": {
+        "predicted": 2,
+        "labeled": 2,
+        "matched": 2,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "rally_end": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "rally_start": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "serve": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      }
+    },
+    "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_2s_match_events.json",
+    "label_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/data/benchmark/labels/broadcast_2s_labels.json"
+  },
+  "broadcast_3s_serve": {
+    "overall": {
+      "predicted": 3,
+      "labeled": 3,
+      "matched": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "by_type": {
+      "rally_end": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "rally_start": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "serve": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      }
+    },
+    "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_3s_serve_match_events.json",
+    "label_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/data/benchmark/labels/broadcast_3s_serve_labels.json"
+  },
+  "broadcast_4s_rally": {
+    "overall": {
+      "predicted": 9,
+      "labeled": 9,
+      "matched": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "by_type": {
+      "bounce": {
+        "predicted": 3,
+        "labeled": 3,
+        "matched": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "hit": {
+        "predicted": 3,
+        "labeled": 3,
+        "matched": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "rally_end": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "rally_start": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "serve": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      }
+    },
+    "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_4s_rally_match_events.json",
+    "label_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/data/benchmark/labels/broadcast_4s_rally_labels.json"
+  },
+  "broadcast_5s_pressure": {
+    "overall": {
+      "predicted": 5,
+      "labeled": 5,
+      "matched": 5,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "by_type": {
+      "bounce": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "hit": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "rally_end": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "rally_start": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "serve": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      }
+    },
+    "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_5s_pressure_match_events.json",
+    "label_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/data/benchmark/labels/broadcast_5s_pressure_labels.json"
+  },
+  "broadcast_6s_exchange": {
+    "overall": {
+      "predicted": 12,
+      "labeled": 12,
+      "matched": 12,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "by_type": {
+      "bounce": {
+        "predicted": 4,
+        "labeled": 4,
+        "matched": 4,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "hit": {
+        "predicted": 5,
+        "labeled": 5,
+        "matched": 5,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "rally_end": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "rally_start": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "serve": {
+        "predicted": 1,
+        "labeled": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      }
+    },
+    "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_6s_exchange_match_events.json",
+    "label_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/data/benchmark/labels/broadcast_6s_exchange_labels.json"
+  },
+  "broadcast_8s": {
+    "overall": {
+      "predicted": 15,
+      "labeled": 15,
+      "matched": 15,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "by_type": {
+      "bounce": {
+        "predicted": 4,
+        "labeled": 4,
+        "matched": 4,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "hit": {
+        "predicted": 5,
+        "labeled": 5,
+        "matched": 5,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "rally_end": {
+        "predicted": 2,
+        "labeled": 2,
+        "matched": 2,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "rally_start": {
+        "predicted": 2,
+        "labeled": 2,
+        "matched": 2,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      },
+      "serve": {
+        "predicted": 2,
+        "labeled": 2,
+        "matched": 2,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "missed": [],
+        "extra": []
+      }
+    },
+    "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_8s_match_events.json",
+    "label_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/data/benchmark/labels/broadcast_8s_labels.json"
+  },
+  "_aggregate": {
+    "predicted": 50,
+    "labeled": 50,
+    "matched": 50,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  }
+}

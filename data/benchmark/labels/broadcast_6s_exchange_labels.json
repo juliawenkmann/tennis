@@ -1,0 +1,75 @@
+{
+  "source_video": "broadcast_6s_exchange.mp4",
+  "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_6s_exchange_tracking.json",
+  "annotation_status": "reviewed",
+  "notes": "Reviewed against tmp/benchmark_review/broadcast_6s_exchange_event_sheet.jpg and tmp/benchmark_review/broadcast_6s_exchange_timeline.jpg. The predicted exchange sequence was kept as currently timed.",
+  "rallies": [
+    {
+      "id": 1,
+      "start_frame": 2,
+      "end_frame": 147,
+      "events": [
+        {
+          "type": "rally_start",
+          "frame": 2,
+          "actor": "far_player"
+        },
+        {
+          "type": "serve",
+          "frame": 12,
+          "actor": "far_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 47,
+          "actor": "far_player"
+        },
+        {
+          "type": "hit",
+          "frame": 57,
+          "actor": "near_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 77,
+          "actor": "near_player"
+        },
+        {
+          "type": "hit",
+          "frame": 80,
+          "actor": "far_player"
+        },
+        {
+          "type": "hit",
+          "frame": 96,
+          "actor": "far_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 107,
+          "actor": "far_player"
+        },
+        {
+          "type": "hit",
+          "frame": 118,
+          "actor": "near_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 137,
+          "actor": "near_player"
+        },
+        {
+          "type": "hit",
+          "frame": 141,
+          "actor": "far_player"
+        },
+        {
+          "type": "rally_end",
+          "frame": 147,
+          "actor": "far_player"
+        }
+      ]
+    }
+  ]
+}

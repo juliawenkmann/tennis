@@ -1,0 +1,97 @@
+{
+  "source_video": "broadcast_8s.mp4",
+  "prediction_source": "/Users/juliawenkmann/Documents/CodingProjects/sonstiges/tennis/out/events/broadcast_8s_tracking.json",
+  "annotation_status": "reviewed",
+  "notes": "Reviewed against tmp/benchmark_review/broadcast_8s_event_sheet.jpg. The first two single-frame rally detections were dropped as false positives. The later two rallies were kept as plausible.",
+  "rallies": [
+    {
+      "id": 3,
+      "start_frame": 34,
+      "end_frame": 97,
+      "events": [
+        {
+          "type": "rally_start",
+          "frame": 34,
+          "actor": "far_player"
+        },
+        {
+          "type": "serve",
+          "frame": 46,
+          "actor": "far_player"
+        },
+        {
+          "type": "hit",
+          "frame": 66,
+          "actor": "far_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 72,
+          "actor": "far_player"
+        },
+        {
+          "type": "hit",
+          "frame": 79,
+          "actor": "near_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 86,
+          "actor": "near_player"
+        },
+        {
+          "type": "hit",
+          "frame": 89,
+          "actor": "far_player"
+        },
+        {
+          "type": "rally_end",
+          "frame": 97,
+          "actor": "far_player"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start_frame": 108,
+      "end_frame": 199,
+      "events": [
+        {
+          "type": "rally_start",
+          "frame": 108,
+          "actor": "far_player"
+        },
+        {
+          "type": "serve",
+          "frame": 119,
+          "actor": "far_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 150,
+          "actor": "far_player"
+        },
+        {
+          "type": "hit",
+          "frame": 167,
+          "actor": "near_player"
+        },
+        {
+          "type": "bounce",
+          "frame": 185,
+          "actor": "near_player"
+        },
+        {
+          "type": "hit",
+          "frame": 187,
+          "actor": "far_player"
+        },
+        {
+          "type": "rally_end",
+          "frame": 199,
+          "actor": "far_player"
+        }
+      ]
+    }
+  ]
+}
