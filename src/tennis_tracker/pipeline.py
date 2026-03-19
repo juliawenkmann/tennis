@@ -551,8 +551,8 @@ class PlayerDetector:
         result = self.model.predict(
             frame,
             classes=[0],
-            conf=0.25,
-            max_det=6,
+            conf=0.18,
+            max_det=8,
             imgsz=self.imgsz,
             device=self.device,
             verbose=False,
@@ -578,20 +578,45 @@ class PlayerDetector:
         if not detections:
             return []
 
-        detections.sort(key=lambda item: item.court_xy_m[1])
-        if len(detections) == 1:
-            detections[0].label = "player"
-            return detections
+        return self._select_relevant_players(detections, reference)
 
-        far_player = detections[0]
-        near_player = detections[-1]
+    def _is_possible_player(self, court_point: np.ndarray, reference: CourtReference) -> bool:
+        x, y = float(court_point[0]), float(court_point[1])
+        return -1.0 <= x <= (reference.width_m + 1.0) and -2.0 <= y <= (reference.length_m + 8.0)
+
+    def _select_relevant_players(
+        self,
+        detections: list[PlayerDetectionResult],
+        reference: CourtReference,
+    ) -> list[PlayerDetectionResult]:
+        ordered = sorted(detections, key=lambda item: item.court_xy_m[1])
+        if len(ordered) == 1:
+            ordered[0].label = "player"
+            return ordered
+
+        midline_y = reference.length_m / 2.0
+        far_candidates = [item for item in ordered if item.court_xy_m[1] <= (midline_y + 1.5)]
+        near_candidates = [item for item in ordered if item.court_xy_m[1] >= (midline_y - 1.5)]
+
+        far_player = self._best_candidate(far_candidates) if far_candidates else ordered[0]
+        near_player = self._best_candidate(near_candidates) if near_candidates else ordered[-1]
+
+        if far_player is near_player:
+            far_player = ordered[0]
+            near_player = ordered[-1]
+
         far_player.label = "far_player"
         near_player.label = "near_player"
         return [far_player, near_player]
 
-    def _is_possible_player(self, court_point: np.ndarray, reference: CourtReference) -> bool:
-        x, y = float(court_point[0]), float(court_point[1])
-        return 0.5 <= x <= (reference.width_m - 0.5) and -2.0 <= y <= (reference.length_m + 6.0)
+    def _best_candidate(self, detections: list[PlayerDetectionResult]) -> PlayerDetectionResult:
+        return max(detections, key=self._candidate_score)
+
+    def _candidate_score(self, detection: PlayerDetectionResult) -> float:
+        x1, y1, x2, y2 = detection.bbox_xyxy
+        area = max((x2 - x1) * (y2 - y1), 1.0)
+        area_bonus = min(area / 80000.0, 1.0) * 0.12
+        return float(detection.confidence) + area_bonus
 
 
 @dataclass
@@ -711,6 +736,8 @@ class PlayerTrackerState:
             return self._copy_detection(current)
 
         alpha = self.smoothing_alpha
+        if current.label == "near_player":
+            alpha = min(0.9, alpha + 0.12)
         return PlayerDetectionResult(
             label=current.label,
             bbox_xyxy=self._blend_list(previous.bbox_xyxy, current.bbox_xyxy, alpha),
@@ -1216,6 +1243,7 @@ def run_pipeline(
     court_detect_stride: int = 1,
     ball_detect_stride: int = 1,
     player_model_imgsz: int = 640,
+    player_smoothing_alpha: float = 0.68,
     ball_batch_size: int = 12,
     write_video: bool = True,
     write_xml: bool = True,
@@ -1250,7 +1278,11 @@ def run_pipeline(
         if step in {"players", "all"}
         else None
     )
-    player_tracker = PlayerTrackerState(reference) if player_detector is not None else None
+    player_tracker = (
+        PlayerTrackerState(reference, smoothing_alpha=float(player_smoothing_alpha))
+        if player_detector is not None
+        else None
+    )
     ball_detector = (
         TrackNetBallDetector(
             weights_path,

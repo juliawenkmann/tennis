@@ -72,7 +72,7 @@ Outputs are written to `out/` as `court.mp4`, `players.mp4`, `ball.mp4`, `all.mp
 For `--step all`, the pipeline also writes `all_events.json`, which is the canonical event-layer artifact.
 
 The notebook demo lives at the repo root in `tennis-tracking-overlay-demo.ipynb`.
-It now renders the full selected overlay video directly in the notebook from a fast path that prefers CUDA, then MPS, and can also target videos under `data/raw/`.
+It now renders the full selected overlay video directly in the notebook from a fast path that prefers CUDA, then MPS, can also target videos under `data/raw/`, and uses per-frame player detection for a more stable near-player box.
 
 The bird's-eye notebook lives at the repo root in `tennis-birdseye-demo.ipynb`.
 It uses the same tracked court, player, and ball data, adds cached pose-based player skeletons, and redraws the result on a normalized top-down court with an event-aware ball shadow instead of raw airborne homography.
