@@ -25,7 +25,7 @@ def write_match_tracking_xml(
 
     root = ET.Element("match")
     initial_court = events_data.get("court")
-    if initial_court is not None:
+    if initial_court is not None and initial_court.get("image_corners"):
         root.append(court_element(initial_court))
 
     current_frame_index = 0

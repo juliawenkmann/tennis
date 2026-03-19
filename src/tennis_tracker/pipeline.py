@@ -526,6 +526,53 @@ class CourtTracker:
             + (alpha * candidate_corners)
         ).astype(np.float32)
 
+    def reset(self) -> None:
+        self.previous_result = None
+
+
+class PlayViewGate:
+    def __init__(
+        self,
+        *,
+        max_single_player_frames: int = 0,
+        reset_after_invalid_frames: int = 6,
+    ) -> None:
+        self.max_single_player_frames = max_single_player_frames
+        self.reset_after_invalid_frames = reset_after_invalid_frames
+        self.confirmed_view = False
+        self.invalid_streak = 0
+        self.is_valid = False
+
+    def update(
+        self,
+        *,
+        detected_player_count: int | None,
+        court: CourtDetectionResult,
+    ) -> tuple[bool, bool]:
+        if detected_player_count is None:
+            return self.is_valid, False
+
+        if detected_player_count >= 2:
+            self.confirmed_view = True
+            self.invalid_streak = 0
+            self.is_valid = True
+            return True, False
+
+        penalty = 2 if court.source == "previous" else 1
+        self.invalid_streak += penalty
+        if not self.confirmed_view:
+            self.is_valid = False
+        else:
+            self.is_valid = self.invalid_streak <= self.max_single_player_frames
+
+        should_reset = self.invalid_streak >= self.reset_after_invalid_frames
+        return self.is_valid, should_reset
+
+    def reset(self) -> None:
+        self.confirmed_view = False
+        self.invalid_streak = 0
+        self.is_valid = False
+
 
 class PlayerDetector:
     def __init__(
@@ -762,6 +809,9 @@ class PlayerTrackerState:
             confidence=float(detection.confidence),
             source=detection.source,
         )
+
+    def reset(self) -> None:
+        self.tracks.clear()
 
 
 class TrackNetBallDetector:
@@ -1010,6 +1060,11 @@ class BallTrajectoryFilter:
     def _is_reasonable_court_point(self, court_point: np.ndarray) -> bool:
         x, y = float(court_point[0]), float(court_point[1])
         return -1.2 <= x <= (self.reference.width_m + 1.2) and -4.0 <= y <= (self.reference.length_m + 4.0)
+
+    def reset(self) -> None:
+        self.last_image_xy = None
+        self.last_velocity_xy = None
+        self.missing_frames = 0
 
 
 def project_points(points: np.ndarray, homography: np.ndarray) -> np.ndarray:
@@ -1293,6 +1348,7 @@ def run_pipeline(
         else None
     )
     ball_filter = BallTrajectoryFilter(reference) if ball_detector is not None else None
+    play_view_gate = PlayViewGate() if player_detector is not None else None
 
     output_video_path = output_dir / f"{output_stem}.mp4"
     temp_video_path = output_dir / f"{output_stem}.opencv.mp4"
@@ -1359,22 +1415,14 @@ def run_pipeline(
         court = last_court
         if court is None:
             raise RuntimeError(f"Court detection failed at frame {frame_index}.")
-        overlay = None
-        if writer is not None:
-            overlay = draw_court_overlay(frame, court) if step in {"court", "players", "all"} else frame.copy()
+        overlay = frame.copy() if writer is not None else None
 
         payload: dict[str, Any] = {
             "frame_index": frame_index,
             "timestamp_sec": round(frame_index / fps, 3),
-            "court": {
-                "image_corners": [[round(float(x), 2), round(float(y), 2)] for x, y in court.image_corners],
-                "image_keypoints": court.image_keypoints,
-                "source": court.source,
-                "line_support": court.line_support,
-                "shape_score": court.shape_score,
-                "score": court.total_score,
-            },
         }
+        raw_players: list[PlayerDetectionResult] = []
+        detected_player_count: int | None = None
 
         if player_detector is not None:
             should_detect_players = (
@@ -1383,21 +1431,72 @@ def run_pipeline(
                 or player_detect_stride <= 1
                 or (frame_index % player_detect_stride) == 0
             )
-            players = player_detector.detect(frame, court, reference) if should_detect_players else []
-            if player_tracker is not None:
-                players = player_tracker.update(players)
-            if overlay is not None:
+            if should_detect_players:
+                raw_players = player_detector.detect(frame, court, reference)
+                detected_player_count = len(raw_players)
+
+        view_valid = True
+        if play_view_gate is not None:
+            view_valid, should_reset_view = play_view_gate.update(
+                detected_player_count=detected_player_count,
+                court=court,
+            )
+            if should_reset_view:
+                court_tracker.reset()
+                last_court = None
+                if player_tracker is not None:
+                    player_tracker.reset()
+                if ball_filter is not None:
+                    ball_filter.reset()
+                play_view_gate.reset()
+
+        payload["court"] = {
+            "visible": view_valid,
+            "image_corners": (
+                [[round(float(x), 2), round(float(y), 2)] for x, y in court.image_corners]
+                if view_valid
+                else []
+            ),
+            "image_keypoints": court.image_keypoints if view_valid else {},
+            "source": court.source if view_valid else "suppressed",
+            "line_support": court.line_support,
+            "shape_score": court.shape_score,
+            "score": court.total_score,
+        }
+
+        if overlay is not None and view_valid and step in {"court", "players", "all"}:
+            overlay = draw_court_overlay(overlay, court)
+
+        if player_detector is not None:
+            players = []
+            if view_valid:
+                players = raw_players
+                if player_tracker is not None:
+                    players = player_tracker.update(players)
+            else:
+                if player_tracker is not None:
+                    player_tracker.reset()
+            if overlay is not None and view_valid:
                 overlay = draw_players_overlay(overlay, players)
             payload["players"] = [player.__dict__ for player in players]
 
         if ball_detector is not None:
-            ball_xy = ball_detections[frame_index]
-            ball_payload = ball_filter.update(ball_xy, court) if ball_filter is not None else {
-                "image_xy": ball_xy,
-                "court_xy_m": None,
-                "source": "detected" if ball_xy is not None else "missing",
-            }
-            if overlay is not None:
+            if not view_valid:
+                if ball_filter is not None:
+                    ball_filter.reset()
+                ball_payload = {
+                    "image_xy": None,
+                    "court_xy_m": None,
+                    "source": "suppressed",
+                }
+            else:
+                ball_xy = ball_detections[frame_index]
+                ball_payload = ball_filter.update(ball_xy, court) if ball_filter is not None else {
+                    "image_xy": ball_xy,
+                    "court_xy_m": None,
+                    "source": "detected" if ball_xy is not None else "missing",
+                }
+            if overlay is not None and view_valid:
                 overlay = draw_ball_overlay(overlay, ball_payload["image_xy"])
             payload["ball"] = ball_payload
 

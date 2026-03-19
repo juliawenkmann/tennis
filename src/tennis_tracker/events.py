@@ -59,10 +59,22 @@ def extract_match_events(
         "frame_count": len(frames),
         "frame_size": tracking_data.get("frame_size", {"width": 0, "height": 0}),
         "court_reference_m": tracking_data.get("court_reference_m", {}),
-        "court": frames[0]["court"] if frames else None,
+        "court": first_visible_court(frames),
         "tracking_source": tracking_source,
         "rallies": rallies,
     }
+
+
+def first_visible_court(frames: list[dict[str, Any]]) -> dict[str, Any] | None:
+    for frame in frames:
+        court = frame.get("court")
+        if not isinstance(court, dict):
+            continue
+        if not court.get("visible", True):
+            continue
+        if court.get("image_corners"):
+            return court
+    return None
 
 
 def build_rally_payload(
